@@ -1,0 +1,22 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      label: main
+      server:
+        bootstrap: true
+        git:
+          default-label: main
+          uri: file:///@project.basedir@/../
+          searchPaths: git-local-config-repo
+          native:
+            searchLocations: @project.basedir@/../git-local-config-repo/
+logging:
+  level:
+    org:
+      springframework: debug
