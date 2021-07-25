@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CurrencyController {
-    @Value("{spring.application.message:default}")
+    @Value("${spring.application.message:default}")
     String message;
     @GetMapping("/")
     public ResponseEntity<String> index(){
