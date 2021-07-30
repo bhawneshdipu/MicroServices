@@ -1,4 +1,4 @@
-package com.dipu.microservice.currency;
+package com.dipu.microservice.currency.controller;
 
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -7,18 +7,21 @@ import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class CircuitBreakerController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @GetMapping("/sample-api")
     @Retry(name = "sample-api",fallbackMethod = "sampleApiFallback")
-    public String sampleApi(HttpRequest request){
-        logger.info("sampleApi call:{}",request.getURI());
+    @RateLimiter(name = "default")
+    @Bulkhead(name = "default",fallbackMethod = "concurrentLimitReached")
+    public String sampleApi(HttpServletRequest request){
+        logger.info("sampleApi call:{}",request.getRequestURI());
         return new RestTemplate().getForEntity("http://localhost:8080/",String.class).getBody();
         //return "sample-api-response";
     }

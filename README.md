@@ -1,3 +1,14 @@
+# MicroService:
+    -   config-server: for configurations
+    -   eureka-naming-server: for registering of all microservices
+    -   api-gateway: for api-gateway: modify request header/params/authenticate etc:
+        -   bestpractice:  pass all request through api-gateway for logging,auth,security etc
+        -   resilence4j: for  rate-limiter, retry, circuit-breaker,bulkhead-concurrent calls
+    -   feign: for proxy controler to talk to different micro-service
+    -   netflix-eureka-client: to register to eureka server
+    -   load-balancer: through the eureka-server
+
+
 # Troubleshoot
 
     - : Issue:   
