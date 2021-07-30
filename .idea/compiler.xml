@@ -10,7 +10,6 @@
         <module name="config-server" />
         <module name="currency" />
         <module name="exchange" />
-        <module name="auth" />
         <module name="eureka-naming-server" />
       </profile>
     </annotationProcessing>
